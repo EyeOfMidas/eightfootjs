@@ -1,0 +1,47 @@
+<style type="text/css">
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body{ 
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+#slotmachine {
+	width: 100%;
+	height: 100%;
+}
+</style>
+<canvas id="eightfootjs"></canvas>
+<script type="text/javascript" src="../../eightfoot.js"></script>
+<script type="text/javascript" src="../../system.js"></script>
+<script type="text/javascript" src="../../tween.js" ></script>
+<script type="text/javascript" src="../../sprite.js" ></script>
+<script type="text/javascript">
+var slotwheel = new EF.Sprite("slotwheel.png", 128, 128);
+EF.init = function() {
+
+};
+
+EF.update = function(delta) {
+	//console.log(delta);
+};
+
+EF.draw = function(graphics) {
+	graphics.fillStyle = "#666666";
+	graphics.clearRect(0, 0, canvas.width, canvas.height);
+	graphics.rect(0, 0, canvas.width, canvas.height);
+	graphics.fill();
+
+	pixelPoint = EF.worldToPixel({x:-0.5, y:-0.5});
+	slotwheel.draw(graphics, pixelPoint.x, pixelPoint.y);
+	//slotwheel.currentFrame++;
+	//graphics.rect(50, 50, 128, 128);
+	//graphics.lineWidth = "1";
+	//graphics.strokeStyle = "#00FF00";
+	//graphics.stroke();
+};
+</script>

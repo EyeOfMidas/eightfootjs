@@ -1,7 +1,0 @@
-define(
-    function(){
-		Canvas = function() {
-			
-		}
-	}
-);
