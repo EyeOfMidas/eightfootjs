@@ -1,35 +1,67 @@
-window.requestAnimationFrame = (function(callback) { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {window.setTimeout(callback, 1000 / 60);}})();
+(function() {
+    var lastTime = 0;
+    var vendors = ['webkit', 'moz', 'o', 'ms'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame =
+          window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
 
-var canvas = document.getElementById("eightfootjs");
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = Date.now();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
 
-window.loop = function(context, lastTime) {
-	var currentTime = new Date().getTime();
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
+
+EF.System = {};
+EF.System.fps = 0;
+
+EF.System.canvas = document.getElementById("eightfootjs");
+EF.System.graphics = EF.System.canvas.getContext("2d");
+
+EF.System.loop = function(lastTime) {
+	var currentTime = Date.now();
 	var delta = (currentTime - lastTime);
+	requestAnimationFrame(function() {
+		EF.System.loop(currentTime);
+	}, EF.System.canvas);
 
-	EF.update(delta);
-	EF.draw(context);
-
-
-requestAnimationFrame(function() {
-	loop(context, currentTime);
-});
+	this.mainobj.update(delta);
+	this.mainobj.draw(EF.System.graphics);
+	this.fps = Math.floor(1000 / delta);
 };
 
-document.addEventListener("DOMContentLoaded", function() {
-	EF.init();
-	resizeCanvas();
-	var context = canvas.getContext("2d");
-	loop(context, new Date().getTime());
-});
+EF.System.attach = function(canvasid, mainobj) {
+	this.mainobj = mainobj;
+	document.addEventListener("DOMContentLoaded", function() {
+		mainobj.init();
+		EF.System.resizeCanvas();
+		EF.System.canvas = document.getElementById(canvasid);
+		EF.System.graphics = EF.System.canvas.getContext("2d");
+		requestAnimationFrame(function() {
+			EF.System.loop(Date.now());
+		}, EF.System.canvas);
+	});
+};
 
-
-
-window.resizeCanvas = function() {
+EF.System.resizeCanvas = function() {
 	var newWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 	var newHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	canvas.width = newWidth;
-	canvas.height = newHeight;
+	
+	EF.System.canvas.width = newWidth;
+	EF.System.canvas.height = newHeight;
+	EF.System.graphics = EF.System.canvas.getContext("2d");
 };
 
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener("resize", EF.System.resizeCanvas);
 

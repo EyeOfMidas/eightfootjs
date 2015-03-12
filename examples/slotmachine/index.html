@@ -10,9 +10,16 @@ html, body{
 	width: 100%;
 	height: 100%;
 }
-#slotmachine {
+#eightfootjs {
 	width: 100%;
 	height: 100%;
+	/*background-color: #666666;*/
+}
+#efstats {
+	position: absolute;
+	z-index: 2;
+	width: 200px;
+	height: 20px;
 }
 </style>
 <canvas id="eightfootjs"></canvas>
@@ -21,27 +28,64 @@ html, body{
 <script type="text/javascript" src="../../tween.js" ></script>
 <script type="text/javascript" src="../../sprite.js" ></script>
 <script type="text/javascript">
-var slotwheel = new EF.Sprite("slotwheel.png", 128, 128);
-EF.init = function() {
+
+
+SlotMachine = function() {
+	
+	
+};
+SlotMachine.prototype.init = function() {
+	this.wheels = [
+		new SlotRoller(-0.33, -0.25),
+		new SlotRoller(0, -0.25),
+		new SlotRoller(0.33, -0.25)
+	];
+};
+SlotMachine.prototype.update = function(delta) {
+	for(var i = 0; i < this.wheels.length; i++) {
+		this.wheels[i].update(delta);
+	}
 
 };
-
-EF.update = function(delta) {
-	//console.log(delta);
-};
-
-EF.draw = function(graphics) {
+SlotMachine.prototype.draw = function(graphics) {
 	graphics.fillStyle = "#666666";
-	graphics.clearRect(0, 0, canvas.width, canvas.height);
-	graphics.rect(0, 0, canvas.width, canvas.height);
+	graphics.clearRect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
+	graphics.beginPath();
+	graphics.rect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
+	graphics.fill();
+	
+	for(var i = 0; i < this.wheels.length; i++) {
+		this.wheels[i].draw(graphics);
+	}
+
+	graphics.fillStyle = "#FFFFFF";
+	graphics.font = "20px sans";
+	graphics.fillText('FPS: ' + EF.System.fps, 5, 20)
+
+};
+
+SlotRoller = function(x, y) {
+	this.sprite = new EF.Sprite("slotwheel.png", 128, 128);
+	this.position = {x: x, y: y};
+	this.sprite.setPosition(EF.worldToPixel(this.position));
+};
+SlotRoller.prototype.draw = function(graphics) {
+	graphics.beginPath();
+	var pixelPosition = EF.worldToPixel(this.position);
+	graphics.rect(pixelPosition.x, pixelPosition.y, 128, 128);
+	graphics.lineWidth = "1";
+	graphics.fillStyle = "#669966";
 	graphics.fill();
 
-	pixelPoint = EF.worldToPixel({x:-0.5, y:-0.5});
-	slotwheel.draw(graphics, pixelPoint.x, pixelPoint.y);
-	//slotwheel.currentFrame++;
-	//graphics.rect(50, 50, 128, 128);
-	//graphics.lineWidth = "1";
-	//graphics.strokeStyle = "#00FF00";
-	//graphics.stroke();
+	this.sprite.draw(graphics);
 };
+
+SlotRoller.prototype.update = function(delta) {
+	this.sprite.currentFrame++;
+	this.sprite.setPosition(EF.worldToPixel(this.position));
+};
+
+
+var machine = new SlotMachine();
+EF.System.attach("eightfootjs",machine);
 </script>
