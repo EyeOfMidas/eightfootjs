@@ -1,7 +1,6 @@
 (window.EF||(EF={}));
-EF.Sprite = function(imagepath, width, height) {
-	this.image = new Image();
-	this.image.src = imagepath;
+EF.Sprite = function(image, width, height) {
+	this.image = image;
 	this.pixelWidth = width;
 	this.pixelHeight = height;
 	this.currentFrame = 0;

@@ -1,5 +1,5 @@
 SlotRoller = function(x, y) {
-	this.sprite = new EF.Sprite("slotwheel.png", 128, 128);
+	this.sprite = new EF.Sprite(EF.Assets.getImage("slotwheel.png"), 128, 128);
 	this.position = {x: x, y: y};
 	this.sprite.setPosition(EF.worldToPixel(this.position));
 };

@@ -3,6 +3,8 @@ SlotMachine = function() {
 	
 };
 SlotMachine.prototype.init = function() {
+	EF.Assets.addImage("slotwheel.png");
+
 	this.wheels = [
 		new SlotRoller(-0.33, -0.25),
 		new SlotRoller(0, -0.25),
