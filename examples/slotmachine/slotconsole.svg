@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="800"
+   height="600"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="slotconsole.svg">
+  <defs
+     id="defs4">
+    <filter
+       id="filter3027"
+       inkscape:label="Apparition"
+       x="0"
+       y="0"
+       width="1"
+       height="1"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Edges are partly feathered out"
+       color-interpolation-filters="sRGB">
+      <feMorphology
+         id="feMorphology3029"
+         radius="4"
+         in="SourceGraphic"
+         result="result0" />
+      <feGaussianBlur
+         id="feGaussianBlur3031"
+         in="result0"
+         stdDeviation="8"
+         result="result91" />
+      <feComposite
+         id="feComposite3033"
+         in2="result91"
+         operator="in"
+         in="SourceGraphic" />
+    </filter>
+    <filter
+       id="filter3042"
+       inkscape:label="Apparition"
+       x="0"
+       y="0"
+       width="1"
+       height="1"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Edges are partly feathered out"
+       color-interpolation-filters="sRGB">
+      <feMorphology
+         id="feMorphology3044"
+         radius="4"
+         in="SourceGraphic"
+         result="result0" />
+      <feGaussianBlur
+         id="feGaussianBlur3046"
+         in="result0"
+         stdDeviation="8"
+         result="result91" />
+      <feComposite
+         id="feComposite3048"
+         in2="result91"
+         operator="in"
+         in="SourceGraphic" />
+    </filter>
+    <filter
+       id="filter3004"
+       inkscape:label="Apparition"
+       x="0"
+       y="0"
+       width="1"
+       height="1"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Edges are partly feathered out"
+       color-interpolation-filters="sRGB">
+      <feMorphology
+         id="feMorphology3006"
+         radius="4"
+         in="SourceGraphic"
+         result="result0" />
+      <feGaussianBlur
+         id="feGaussianBlur3008"
+         in="result0"
+         stdDeviation="8"
+         result="result91" />
+      <feComposite
+         id="feComposite3010"
+         in2="result91"
+         operator="in"
+         in="SourceGraphic" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="453.408"
+     inkscape:cy="219.25997"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1351"
+     inkscape:window-height="817"
+     inkscape:window-x="1783"
+     inkscape:window-y="66"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-114.28571,-169.50504)">
+    <g
+       id="g3012"
+       transform="matrix(0.99994417,0,0,0.99990099,0.05104808,0.01678458)"
+       inkscape:export-filename="/home/midas/git/eightfootjs/examples/slotmachine/slotbackground.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3004)"
+         d="m 134.09216,175.50504 c -10.99752,0 -19.85112,8.83167 -19.85112,19.80197 l 0,554.45546 c 0,10.9703 8.8536,19.80198 19.85112,19.80198 l 754.34243,0 c 10.99752,0 19.85112,-8.83168 19.85112,-19.80198 l 0,-554.45546 c 0,-10.9703 -8.8536,-19.80197 -19.85112,-19.80197 z m 51.6129,166.35643 123.04715,0 0,376.19802 -123.04715,0 z m 148.38834,0 123.04715,0 0,376.19802 -123.04715,0 z m 148.41936,0 123.04714,0 0,376.19802 -123.04714,0 z"
+         id="path3002"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sssssssssccccccccccccccc" />
+      <path
+         sodipodi:nodetypes="sssssssssccccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="rect2985"
+         d="m 140.09216,169.50504 c -10.99752,0 -19.85112,8.83167 -19.85112,19.80197 l 0,554.45546 c 0,10.9703 8.8536,19.80198 19.85112,19.80198 l 754.34243,0 c 10.99752,0 19.85112,-8.83168 19.85112,-19.80198 l 0,-554.45546 c 0,-10.9703 -8.8536,-19.80197 -19.85112,-19.80197 z m 51.6129,166.35643 123.04715,0 0,376.19802 -123.04715,0 z m 148.38834,0 123.04715,0 0,376.19802 -123.04715,0 z m 148.41936,0 123.04714,0 0,376.19802 -123.04714,0 z"
+         style="fill:#217821;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+    </g>
+    <g
+       id="g3050"
+       transform="translate(-7.1428586,-5.7142861)"
+       inkscape:export-filename="/home/midas/git/eightfootjs/examples/slotmachine/slotbutton.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3042)"
+         id="rect3040"
+         width="232.33508"
+         height="145.46196"
+         x="651.5542"
+         y="584.18811"
+         rx="20"
+         ry="20" />
+      <rect
+         ry="20"
+         rx="20"
+         y="580.18811"
+         x="655.5542"
+         height="145.46196"
+         width="232.33508"
+         id="rect2993"
+         style="fill:#005500;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+      <flowRoot
+         transform="translate(88.74474,174.03586)"
+         style="font-size:48px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:GrutchShaded;-inkscape-font-specification:GrutchShaded"
+         id="flowRoot2998"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3000"><rect
+             y="455.71429"
+             x="581.42859"
+             height="129.99998"
+             width="274.28571"
+             id="rect3002" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:Zu Kabarett;-inkscape-font-specification:Zu Kabarett"
+           id="flowPara3004">PLAY</flowPara></flowRoot>    </g>
+  </g>
+</svg>
