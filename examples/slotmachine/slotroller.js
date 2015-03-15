@@ -1,5 +1,5 @@
 SlotRoller = function(x, y) {
-	this.itemSelected = 1;
+	this.itemSelected = Math.floor(Math.random() * 8);
 	this.rollTimer = 0;
 	var slotwheel = EF.System.Assets.getImage("slotwheel.png");
 
