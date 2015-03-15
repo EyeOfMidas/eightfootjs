@@ -3,12 +3,12 @@ SlotMachine = function() {
 	
 };
 SlotMachine.prototype.init = function() {
-	EF.Assets.addImage("slotwheel.png");
+	EF.System.Assets.addImage("slotwheel.png");
 
 	this.wheels = [
-		new SlotRoller(-0.33, -0.25),
-		new SlotRoller(0, -0.25),
-		new SlotRoller(0.33, -0.25)
+		new SlotRoller(200, 300),
+		new SlotRoller(400, 300),
+		new SlotRoller(600, 300)
 	];
 };
 SlotMachine.prototype.update = function(delta) {
@@ -17,19 +17,19 @@ SlotMachine.prototype.update = function(delta) {
 	}
 
 };
-SlotMachine.prototype.draw = function(graphics) {
-	graphics.fillStyle = "#666666";
-	graphics.clearRect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
-	graphics.beginPath();
-	graphics.rect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
-	graphics.fill();
+SlotMachine.prototype.draw = function() {
+	EF.System.graphics.fillStyle = "#666666";
+	EF.System.graphics.clearRect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
+	EF.System.graphics.beginPath();
+	EF.System.graphics.rect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
+	EF.System.graphics.fill();
 	
 	for(var i = 0; i < this.wheels.length; i++) {
-		this.wheels[i].draw(graphics);
+		this.wheels[i].draw();
 	}
 
-	graphics.fillStyle = "#FFFFFF";
-	graphics.font = "20px sans";
-	graphics.fillText('FPS: ' + EF.System.fps, 5, 20)
+	EF.System.graphics.fillStyle = "#FFFFFF";
+	EF.System.graphics.font = "20px sans";
+	EF.System.graphics.fillText('FPS: ' + EF.System.fps, 5, 20)
 
 };

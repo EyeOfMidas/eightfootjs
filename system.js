@@ -46,8 +46,6 @@ EF.System.attach = function(canvasid, mainobj) {
 	document.addEventListener("DOMContentLoaded", function() {
 		mainobj.init();
 		EF.System.resizeCanvas();
-		EF.System.canvas = document.getElementById(canvasid);
-		EF.System.graphics = EF.System.canvas.getContext("2d");
 		requestAnimationFrame(function() {
 			EF.System.loop(Date.now());
 		}, EF.System.canvas);
@@ -55,13 +53,6 @@ EF.System.attach = function(canvasid, mainobj) {
 };
 
 EF.System.resizeCanvas = function() {
-	var newWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-	var newHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	
-	EF.System.canvas.width = newWidth;
-	EF.System.canvas.height = newHeight;
-	EF.System.graphics = EF.System.canvas.getContext("2d");
-};
 
-window.addEventListener("resize", EF.System.resizeCanvas);
+};
 

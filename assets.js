@@ -14,7 +14,7 @@ EF.Assets.prototype.getImage = function(imagepath) {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-	EF.Assets = new EF.Assets();
+	EF.System.Assets = new EF.Assets();
 });
 
 

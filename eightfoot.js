@@ -1,5 +1,6 @@
 (window.EF||(EF={}));
 EF.worldToPixel = function(worldPoint) {
+
 	var canvas = EF.System.canvas;
 	var leftRange = canvas.width / 2;
 	var topRange = canvas.height / 2;
