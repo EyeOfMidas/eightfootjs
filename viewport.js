@@ -38,13 +38,11 @@ EF.Viewport.prototype = {
 		this.screen.width = width;
 		this.screen.height = height;
 	},
-	worldToPixel: function(position) {
-		var translatedPosition = {x:0, y:0};
-
-		translatedPosition.x = position.x * this.scale;
-		translatedPosition.y = position.y * this.scale;
-
-		return translatedPosition;
+	worldToPixel: function(worldValue) {
+		return worldValue * this.scale;
+	},
+	worldPointToPixelPoint: function(worldPoint) {
+		return {x:this.worldToPixel(worldPoint.x), y:this.worldToPixel(worldPoint.y)};
 	}
 };
 

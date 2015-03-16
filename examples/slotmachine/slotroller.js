@@ -13,15 +13,15 @@ SlotRoller = function(x, y) {
 	this.position = {x: x, y: y};
 	for(var i = 0; i < this.wheellist.length; i++) {
 		var symbolPos = {x: this.position.x, y: this.position.y + (i * 128)};
-		this.wheellist[i].setPosition(EF.System.Viewport.worldToPixel(symbolPos));
+		this.wheellist[i].setPosition(EF.System.Viewport.worldPointToPixelPoint(symbolPos));
 		this.wheellist[i].setFrame(i + (this.currentItemSelected - 2));
 	}
 };
 SlotRoller.prototype.draw = function() {
 
-	var pixelPosition = EF.System.Viewport.worldToPixel(this.position);
-	var startingPixelPosition = EF.System.Viewport.worldToPixel(this.startingPosition);
-	var spriteSize = EF.System.Viewport.worldToPixel({x: 128, y: 128});
+	var pixelPosition = EF.System.Viewport.worldPointToPixelPoint(this.position);
+	var startingPixelPosition = EF.System.Viewport.worldPointToPixelPoint(this.startingPosition);
+	var spriteSize = EF.System.Viewport.worldPointToPixelPoint({x: 128, y: 128});
 	EF.System.Draw.setFillColor("#669966");
 	//EF.System.Draw.setStrokeColor("#FF0000");
 	EF.System.Draw.rect(startingPixelPosition.x, startingPixelPosition.y + spriteSize.y, spriteSize.x, spriteSize.y * 3);
@@ -51,11 +51,11 @@ SlotRoller.prototype.update = function(delta) {
 	}
 		
 	for(var i = 0; i < this.wheellist.length; i++) {
-		var newSpriteSize = EF.System.Viewport.worldToPixel({x: this.wheellist[i].pixelSize.width, y: this.wheellist[i].pixelSize.height});
+		var newSpriteSize = EF.System.Viewport.worldPointToPixelPoint({x: this.wheellist[i].pixelSize.width, y: this.wheellist[i].pixelSize.height});
 
 		this.wheellist[i].setSize({width:newSpriteSize.x, height: newSpriteSize.y});
 		var symbolPos = {x: this.position.x, y: this.position.y + (i * 128)};
-		this.wheellist[i].setPosition(EF.System.Viewport.worldToPixel(symbolPos));
+		this.wheellist[i].setPosition(EF.System.Viewport.worldPointToPixelPoint(symbolPos));
 		this.wheellist[i].setFrame(i + (this.currentItemSelected - 2));
 	}
 };

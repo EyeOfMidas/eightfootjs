@@ -1,5 +1,8 @@
 SlotMachine = function() {
-	
+	this.font = new EF.Font();
+	this.font.setFamily("sans");
+	this.font.setSize(20);
+	this.font.setPosition(5, 20);
 	
 };
 SlotMachine.prototype.init = function() {
@@ -22,13 +25,19 @@ SlotMachine.prototype.update = function(delta) {
 		this.wheels[i].update(delta);
 	}
 
-	var newBackgroundSize = EF.System.Viewport.worldToPixel({x: this.background.pixelSize.width, y: this.background.pixelSize.height});
+	var newBackgroundSize = EF.System.Viewport.worldPointToPixelPoint({x: this.background.pixelSize.width, y: this.background.pixelSize.height});
 	this.background.setSize({width:newBackgroundSize.x, height: newBackgroundSize.y});
 
-	var newButtonSize = EF.System.Viewport.worldToPixel({x: this.button.pixelSize.width, y: this.button.pixelSize.height});
-	var newButtonPosition = EF.System.Viewport.worldToPixel({x:520, y:400});
+	var newButtonSize = EF.System.Viewport.worldPointToPixelPoint({x: this.button.pixelSize.width, y: this.button.pixelSize.height});
+	var newButtonPosition = EF.System.Viewport.worldPointToPixelPoint({x:520, y:400});
 	this.button.setSize({width:newButtonSize.x, height: newButtonSize.y});
 	this.button.setPosition({x:newButtonPosition.x, y: newButtonPosition.y});
+
+	var newFontSize = EF.System.Viewport.worldPointToPixelPoint({x: 20, y: 0});
+	var newFontPosition = EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30});
+	this.font.setSize(newFontSize.x);
+	this.font.setPosition(newFontPosition.x, newFontPosition.y);
+
 };
 SlotMachine.prototype.draw = function() {
 	EF.System.graphics.clearRect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
@@ -39,14 +48,9 @@ SlotMachine.prototype.draw = function() {
 		this.wheels[i].draw();
 	}
 
-
 	this.background.draw();
-
-	
 	this.button.draw();
-
-	EF.System.Draw.setFillColor("#FFFFFF");
-	EF.System.Draw.setFont("20px sans");
-	EF.System.Draw.text('FPS: ' + EF.System.fps, 5, 20);
+	this.font.setColor("#FFFFFF");
+	this.font.draw('FPS: ' + EF.System.fps);
 
 };
