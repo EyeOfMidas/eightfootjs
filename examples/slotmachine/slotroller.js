@@ -1,5 +1,5 @@
 SlotRoller = function(x, y) {
-	this.itemSelected = Math.floor(Math.random() * 8);
+	this.currentItemSelected = Math.floor(Math.random() * 8);
 	this.rollTimer = 0;
 	var slotwheel = EF.System.Assets.getImage("slotwheel.png");
 
@@ -14,7 +14,7 @@ SlotRoller = function(x, y) {
 	for(var i = 0; i < this.wheellist.length; i++) {
 		var symbolPos = {x: this.position.x, y: this.position.y + (i * 128)};
 		this.wheellist[i].setPosition(EF.System.Viewport.worldToPixel(symbolPos));
-		this.wheellist[i].setFrame(i + (this.itemSelected - 2));
+		this.wheellist[i].setFrame(i + (this.currentItemSelected - 2));
 	}
 };
 SlotRoller.prototype.draw = function() {
@@ -43,11 +43,11 @@ SlotRoller.prototype.update = function(delta) {
 		this.rollTimer = 0;
 	}
 	this.rollTimer++;*/
-	this.position.y += 12;
+	this.position.y += 16;
 
 	if(this.position.y >= this.startingPosition.y + 128) {
 		this.position.y = this.startingPosition.y;
-		this.itemSelected--;
+		this.currentItemSelected--;
 	}
 		
 	for(var i = 0; i < this.wheellist.length; i++) {
@@ -56,6 +56,6 @@ SlotRoller.prototype.update = function(delta) {
 		this.wheellist[i].setSize({width:newSpriteSize.x, height: newSpriteSize.y});
 		var symbolPos = {x: this.position.x, y: this.position.y + (i * 128)};
 		this.wheellist[i].setPosition(EF.System.Viewport.worldToPixel(symbolPos));
-		this.wheellist[i].setFrame(i + (this.itemSelected - 2));
+		this.wheellist[i].setFrame(i + (this.currentItemSelected - 2));
 	}
 };
