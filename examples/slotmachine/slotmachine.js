@@ -1,7 +1,5 @@
 SlotMachine = function() {
-	this.font = new EF.Font();
-	this.font.setFamily("sans");
-	this.font.setSize(20);
+	this.font = new EF.Font("sans", 20);
 	this.font.setPosition(5, 20);
 	
 };
@@ -29,7 +27,7 @@ SlotMachine.prototype.update = function(delta) {
 	this.button.setSize(EF.System.Viewport.worldSizeToPixelSize(this.button.pixelSize));
 	this.button.setPosition(EF.System.Viewport.worldPointToPixelPoint({x:520, y:400}));
 
-	this.font.setSize(EF.System.Viewport.worldToPixel(20));
+	this.font.setSize(EF.System.Viewport.worldToPixel(this.font.pixelSize));
 	this.font.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30}));
 
 };
@@ -44,7 +42,6 @@ SlotMachine.prototype.draw = function() {
 
 	this.background.draw();
 	this.button.draw();
-	this.font.setColor("#FFFFFF");
 	this.font.draw('FPS: ' + EF.System.fps);
 
 };
