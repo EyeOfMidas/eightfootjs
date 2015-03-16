@@ -17,9 +17,9 @@ EF.Font.prototype = {
 	setFamily: function(family) {
 		this.family = family;
 	},
-	setPosition: function(x, y) {
-		this.position.x = x;
-		this.position.y = y;
+	setPosition: function(position) {
+		this.position.x = position.x;
+		this.position.y = position.y;
 	},
 	setColor: function(color) {
 		this.color = color;

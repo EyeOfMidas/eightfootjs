@@ -43,6 +43,9 @@ EF.Viewport.prototype = {
 	},
 	worldPointToPixelPoint: function(worldPoint) {
 		return {x:this.worldToPixel(worldPoint.x), y:this.worldToPixel(worldPoint.y)};
+	},
+	worldSizeToPixelSize: function(worldSize) {
+		return {width:this.worldToPixel(worldSize.width), height:this.worldToPixel(worldSize.height)};	
 	}
 };
 

@@ -25,18 +25,12 @@ SlotMachine.prototype.update = function(delta) {
 		this.wheels[i].update(delta);
 	}
 
-	var newBackgroundSize = EF.System.Viewport.worldPointToPixelPoint({x: this.background.pixelSize.width, y: this.background.pixelSize.height});
-	this.background.setSize({width:newBackgroundSize.x, height: newBackgroundSize.y});
+	this.background.setSize(EF.System.Viewport.worldSizeToPixelSize(this.background.pixelSize));
+	this.button.setSize(EF.System.Viewport.worldSizeToPixelSize(this.button.pixelSize));
+	this.button.setPosition(EF.System.Viewport.worldPointToPixelPoint({x:520, y:400}));
 
-	var newButtonSize = EF.System.Viewport.worldPointToPixelPoint({x: this.button.pixelSize.width, y: this.button.pixelSize.height});
-	var newButtonPosition = EF.System.Viewport.worldPointToPixelPoint({x:520, y:400});
-	this.button.setSize({width:newButtonSize.x, height: newButtonSize.y});
-	this.button.setPosition({x:newButtonPosition.x, y: newButtonPosition.y});
-
-	var newFontSize = EF.System.Viewport.worldPointToPixelPoint({x: 20, y: 0});
-	var newFontPosition = EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30});
-	this.font.setSize(newFontSize.x);
-	this.font.setPosition(newFontPosition.x, newFontPosition.y);
+	this.font.setSize(EF.System.Viewport.worldToPixel(20));
+	this.font.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30}));
 
 };
 SlotMachine.prototype.draw = function() {
