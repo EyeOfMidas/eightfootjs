@@ -51,14 +51,17 @@ EF.TweenAnimator = function() {
 };
 
 EF.TweenAnimator.prototype = {
+	addTween: function(tween) {
+		this.animations.push(tween);
+	},
 	initStart: function() {
 
 	},
 	start: function() {
 
 	},
-	update: function() {
-
+	update: function(delta) {
+		
 	},
 	pause: function() {
 
