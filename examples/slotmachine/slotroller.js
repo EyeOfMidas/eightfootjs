@@ -60,6 +60,13 @@ SlotRoller.prototype = {
 		}
 	},
 	update: function(delta) {
+		if(this.isOvershootResetting) {
+			this.position.y -= 2;
+			if(this.position.y <= this.startingPosition.y) {
+				this.isOvershootResetting = false;
+				this.position.y = this.startingPosition.y;
+			}
+		} else {
 		if(this.isSpinningForever) {
 			this.position.y += 32;
 			this.isSpinning = true;
@@ -70,8 +77,10 @@ SlotRoller.prototype = {
 		if(this.isSpinning && this.isRestingPosition()) {
 			EF.System.Assets.getSound("roller_clunk.mp3").play();
 			this.isSpinning = false;
-			//TODO: add in overshoot bounce tween here
+			this.isOvershootResetting = true;
+			this.position.y += 17;
 
+		}
 		}
 
 		if(this.position.y >= this.startingPosition.y + 128) {
@@ -81,6 +90,7 @@ SlotRoller.prototype = {
 				this.currentItemSelected = 7;
 			}
 		}
+
 		
 		for(var i = 0; i < this.wheellist.length; i++) {
 			var newSpriteSize = EF.System.Viewport.worldSizeToPixelSize(this.wheellist[i].pixelSize);
