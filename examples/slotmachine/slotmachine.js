@@ -6,6 +6,8 @@ SlotMachine.prototype = {
 		EF.System.Assets.addImage("slotwheel.png");
 		EF.System.Assets.addImage("slotbackground.png");
 		EF.System.Assets.addImage("slotbutton.png");
+		EF.System.Assets.addSound("spin_continue.mp3");
+		EF.System.Assets.addSound("spin_finish.mp3");
 		EF.System.Assets.finishLoading(this, "assetsLoaded");
 	},
 	isLoaded: function() {
@@ -56,6 +58,9 @@ SlotMachine.prototype = {
 				}
 			}
 			if(spinResult.length == 3) {
+				EF.System.Assets.getSound("spin_continue.mp3").pause();
+				EF.System.Assets.getSound("spin_continue.mp3").currentTime = 0;
+				EF.System.Assets.getSound("spin_finish.mp3").play();
 				if(spinResult == "777") {
 					console.log("Jackpot!");
 					for(var i = 0; i < this.wheels.length; i++) {
@@ -123,6 +128,8 @@ SlotMachine.prototype = {
 		this.findTimer = 0;
 		this.lastWheel = 0;
 		this.unrewarded = true;
+		EF.System.Assets.getSound("spin_continue.mp3").loop = true;
+		EF.System.Assets.getSound("spin_continue.mp3").play();
 	},
 	preventDuplicates: function(depth, data, number) {
 		if(depth < 0) {

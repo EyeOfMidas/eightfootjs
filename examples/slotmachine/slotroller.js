@@ -60,10 +60,12 @@ SlotRoller.prototype = {
 	},
 	update: function(delta) {
 		if(this.isSpinningForever) {
-			this.position.y += 16;
-		} else if(!this.isRestingPosition()) {
-			this.position.y += 16;
+			this.position.y += 32;
 		}
+		if (!this.isSpinningForever && (this.targetItem != this.currentItemSelected || this.position.y != this.startingPosition.y)) {
+			this.position.y += 17;
+		}
+		//TODO: add in overshoot bounce effect here
 
 		if(this.position.y >= this.startingPosition.y + 128) {
 			this.position.y = this.startingPosition.y;
