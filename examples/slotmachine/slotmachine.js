@@ -48,15 +48,38 @@ SlotMachine.prototype = {
 			}
 		}
 
-		var spinResult = "";
-		for(var i = 0; i < this.wheels.length; i++) {
-			if(this.wheels[i].isRestingPosition()) {
-				spinResult += this.wheels[i].getTargetItem();
+		if(this.unrewarded) {
+			var spinResult = "";
+			for(var i = 0; i < this.wheels.length; i++) {
+				if(this.wheels[i].isRestingPosition()) {
+					spinResult += this.wheels[i].getTargetItem();
+				}
 			}
-		}
-		
-		if(spinResult == "777") {
-			console.log("Jackpot!");
+			if(spinResult.length == 3) {
+				if(spinResult == "777") {
+					console.log("Jackpot!");
+					for(var i = 0; i < this.wheels.length; i++) {
+						this.wheels[i].excite();
+					}
+					this.unrewarded = false;
+				} else if(spinResult == "666") {
+					console.log("Minor Jackpot");
+					this.unrewarded = false;
+				} else if(spinResult == "555") {
+					console.log("Win");
+					this.unrewarded = false;
+				} else if(spinResult.substring(0,2) == "77") {
+					console.log("Oooh, so close!");
+					this.unrewarded = false;
+					this.wheels[2].normal();
+				} else {
+					console.log("Lose");
+					this.unrewarded = false;
+				}
+			}
+			if(spinResult.length == 2 && spinResult == "77") {
+				this.wheels[2].excite();
+			}
 		}
 		
 		this.background.setSize(EF.System.Viewport.worldSizeToPixelSize(this.background.pixelSize));
@@ -95,9 +118,11 @@ SlotMachine.prototype = {
 		for(var i = 0; i < this.wheels.length; i++) {
 			this.wheels[i].setTargetItem(result[i]);
 			this.wheels[i].endlessSpin();
+			this.wheels[i].normal();
 		}
 		this.findTimer = 0;
 		this.lastWheel = 0;
+		this.unrewarded = true;
 	},
 	preventDuplicates: function(depth, data, number) {
 		if(depth < 0) {
@@ -122,7 +147,6 @@ SlotMachine.prototype = {
 		for(var i = 0; i < payouts.length; i++) {
 			totalOdds += payouts[i].probability;
 			if(spinResult <= totalOdds) {
-				console.log(spinResult, totalOdds, i);
 				return payouts[i].result;
 			}
 		}

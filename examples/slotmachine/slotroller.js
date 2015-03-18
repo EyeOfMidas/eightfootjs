@@ -7,6 +7,8 @@ SlotRoller.prototype = {
 	init: function() {
 		this.currentItemSelected = Math.floor(Math.random() * 8);
 		this.targetItem = this.currentItemSelected;
+		this.isExcited = false;
+		this.exciteDelay = 0;
 		var slotwheel = EF.System.Assets.getImage("slotwheel.png");
 
 		this.wheellist = [
@@ -28,7 +30,21 @@ SlotRoller.prototype = {
 		var pixelPosition = EF.System.Viewport.worldPointToPixelPoint(this.position);
 		var startingPixelPosition = EF.System.Viewport.worldPointToPixelPoint(this.startingPosition);
 		var spriteSize = EF.System.Viewport.worldSizeToPixelSize({width: 128, height: 128});
-		EF.System.Draw.setFillColor("#669966");
+		if(this.isExcited) {
+			this.exciteDelay++;
+			if(this.exciteDelay > 10) {
+				if(this.exciteColor == "#996699") {
+					this.exciteColor = "#BB88BB";
+					this.exciteDelay = 0;
+				} else {
+					this.exciteColor = "#996699";
+					this.exciteDelay = 0;
+				}
+			}
+			EF.System.Draw.setFillColor(this.exciteColor);
+		} else {
+			EF.System.Draw.setFillColor("#669966");
+		}
 		//EF.System.Draw.setStrokeColor("#FF0000");
 		EF.System.Draw.rect(startingPixelPosition.x, startingPixelPosition.y + spriteSize.height, spriteSize.width, spriteSize.height * 3);
 		if(this.position.y - 2 < this.startingPosition.y + 2) {
@@ -80,5 +96,12 @@ SlotRoller.prototype = {
 	},
 	getTargetItem: function() {
 		return this.targetItem;
+	},
+	excite: function() {
+		this.exciteColor = "#996699";
+		this.isExcited = true;
+	},
+	normal: function() {
+		this.isExcited = false;
 	}
 };
