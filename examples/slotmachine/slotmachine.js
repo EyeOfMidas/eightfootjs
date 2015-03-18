@@ -8,14 +8,25 @@ SlotMachine.prototype = {
 		EF.System.Assets.addImage("slotbutton.png");
 		EF.System.Assets.addSound("spin_continue.mp3");
 		EF.System.Assets.addSound("spin_finish.mp3");
+		EF.System.Assets.addSound("add_coin.mp3");
+		EF.System.Assets.addSound("remove_coin.mp3");
 		EF.System.Assets.finishLoading(this, "assetsLoaded");
 	},
 	isLoaded: function() {
 		return this.loaded;
 	},
 	assetsLoaded: function() {
+		this.credits = 100;
+		this.creditTarget = 100;
+		this.creditTimer = 0;
+
+		this.scoreFont = new EF.Font("Arial", 48);
+
+		this.currentMessage = "Shape Slots!";
+		this.messageFont = new EF.Font("Arial", 48);
+
 		this.font = new EF.Font("sans", 20);
-		this.font.setPosition(5, 20);
+		this.font.setPosition(15, 30);
 
 		this.wheels = [
 			new SlotRoller(76, 38),
@@ -35,6 +46,7 @@ SlotMachine.prototype = {
 	},
 	update: function(delta) {
 		this.findTimer++;
+		this.creditTimer++;
 		for(var i = 0; i < this.wheels.length; i++) {
 			this.wheels[i].update(delta);
 		}
@@ -62,23 +74,25 @@ SlotMachine.prototype = {
 				EF.System.Assets.getSound("spin_continue.mp3").currentTime = 0;
 				EF.System.Assets.getSound("spin_finish.mp3").play();
 				if(spinResult == "777") {
-					console.log("Jackpot!");
+					this.currentMessage = "Jackpot! +50";
+					this.creditTarget += 50;
 					for(var i = 0; i < this.wheels.length; i++) {
 						this.wheels[i].excite();
 					}
 					this.unrewarded = false;
 				} else if(spinResult == "666") {
-					console.log("Minor Jackpot");
+					this.currentMessage = "Minor Jackpot! +10";
+					this.creditTarget += 10;
 					this.unrewarded = false;
 				} else if(spinResult == "555") {
-					console.log("Win");
+					this.creditTarget += 5;
+					this.currentMessage = "Win! +5";
 					this.unrewarded = false;
 				} else if(spinResult.substring(0,2) == "77") {
-					console.log("Oooh, so close!");
+					this.currentMessage = "Oooh, so close!";
 					this.unrewarded = false;
 					this.wheels[2].normal();
 				} else {
-					console.log("Lose");
 					this.unrewarded = false;
 				}
 			}
@@ -96,6 +110,24 @@ SlotMachine.prototype = {
 
 		this.font.setSize(EF.System.Viewport.worldToPixel(this.font.pixelSize));
 		this.font.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30}));
+		
+		this.scoreFont.setSize(EF.System.Viewport.worldToPixel(this.scoreFont.pixelSize));
+		this.scoreFont.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 550, y: 340}));
+
+		this.messageFont.setSize(EF.System.Viewport.worldToPixel(this.messageFont.pixelSize));
+		this.messageFont.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 50, y: 140}));
+
+		if(this.credits != this.creditTarget && this.creditTimer > 10) {
+			if(this.credits > this.creditTarget) {
+				this.credits--;
+				EF.System.Assets.getSound("remove_coin.mp3").play();
+			} else if(this.credits < this.creditTarget) {
+				this.credits++;
+				EF.System.Assets.getSound("add_coin.mp3").currentTime = 0;
+				EF.System.Assets.getSound("add_coin.mp3").play();
+			}
+			this.creditTimer = 0;
+		}
 	},
 	draw: function() {
 		EF.System.graphics.clearRect(0, 0, EF.System.canvas.width, EF.System.canvas.height);
@@ -108,9 +140,13 @@ SlotMachine.prototype = {
 
 		this.background.draw();
 		this.button.draw();
-		this.font.draw('FPS: ' + EF.System.fps);
+		//this.font.draw('FPS: ' + EF.System.fps);
+		this.scoreFont.draw("$" + this.credits + ".00");
+		this.messageFont.draw(this.currentMessage);
 	},
 	pullLever: function() {
+		this.creditTarget--;
+		this.currentMessage = "";
 		var result = this.rollNewResult();
 		for(var i = 0; i < result.length; i++)	{
 			if(result[i] == "*") {
