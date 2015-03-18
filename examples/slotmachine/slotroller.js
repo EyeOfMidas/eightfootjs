@@ -8,6 +8,7 @@ SlotRoller.prototype = {
 		this.currentItemSelected = Math.floor(Math.random() * 8);
 		this.targetItem = this.currentItemSelected;
 		this.isExcited = false;
+		this.isSpinning = false;
 		this.exciteDelay = 0;
 		var slotwheel = EF.System.Assets.getImage("slotwheel.png");
 
@@ -61,11 +62,17 @@ SlotRoller.prototype = {
 	update: function(delta) {
 		if(this.isSpinningForever) {
 			this.position.y += 32;
+			this.isSpinning = true;
 		}
 		if (!this.isSpinningForever && (this.targetItem != this.currentItemSelected || this.position.y != this.startingPosition.y)) {
 			this.position.y += 17;
 		}
-		//TODO: add in overshoot bounce effect here
+		if(this.isSpinning && this.isRestingPosition()) {
+			EF.System.Assets.getSound("roller_clunk.mp3").play();
+			this.isSpinning = false;
+			//TODO: add in overshoot bounce tween here
+
+		}
 
 		if(this.position.y >= this.startingPosition.y + 128) {
 			this.position.y = this.startingPosition.y;

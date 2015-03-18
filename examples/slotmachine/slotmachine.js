@@ -10,12 +10,15 @@ SlotMachine.prototype = {
 		EF.System.Assets.addSound("spin_finish.mp3");
 		EF.System.Assets.addSound("add_coin.mp3");
 		EF.System.Assets.addSound("remove_coin.mp3");
+		EF.System.Assets.addSound("roller_clunk.mp3");
+		EF.System.Assets.addSound("almost.mp3");
 		EF.System.Assets.finishLoading(this, "assetsLoaded");
 	},
 	isLoaded: function() {
 		return this.loaded;
 	},
 	assetsLoaded: function() {
+		EF.System.Assets.getSound("almost.mp3").loop = true;
 		this.credits = 100;
 		this.creditTarget = 100;
 		this.creditTimer = 0;
@@ -70,6 +73,8 @@ SlotMachine.prototype = {
 				}
 			}
 			if(spinResult.length == 3) {
+				EF.System.Assets.getSound("almost.mp3").pause();
+				EF.System.Assets.getSound("almost.mp3").currentTime = 0;
 				EF.System.Assets.getSound("spin_continue.mp3").pause();
 				EF.System.Assets.getSound("spin_continue.mp3").currentTime = 0;
 				EF.System.Assets.getSound("spin_finish.mp3").play();
@@ -98,6 +103,7 @@ SlotMachine.prototype = {
 			}
 			if(spinResult.length == 2 && spinResult == "77") {
 				this.wheels[2].excite();
+				EF.System.Assets.getSound("almost.mp3").play();
 			}
 		}
 		
