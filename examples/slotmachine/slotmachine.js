@@ -22,6 +22,7 @@ SlotMachine.prototype = {
 		this.credits = 100;
 		this.creditTarget = 100;
 		this.creditTimer = 0;
+		this.firstPlays = [[7,7,7],[7,7,2],[5,5,5]];
 
 		this.scoreFont = new EF.Font("Arial", 48);
 
@@ -79,8 +80,8 @@ SlotMachine.prototype = {
 				EF.System.Assets.getSound("spin_continue.mp3").currentTime = 0;
 				EF.System.Assets.getSound("spin_finish.mp3").play();
 				if(spinResult == "777") {
-					this.currentMessage = "Jackpot! +50";
-					this.creditTarget += 50;
+					this.currentMessage = "Jackpot! +25";
+					this.creditTarget += 25;
 					for(var i = 0; i < this.wheels.length; i++) {
 						this.wheels[i].excite();
 					}
@@ -184,6 +185,9 @@ SlotMachine.prototype = {
 		}
 	},
 	rollNewResult: function() {
+		if(this.firstPlays.length > 0) {
+			return this.firstPlays.pop();
+		}
 		var payouts = [
 			{probability: 10, result: [7,7,7]},
 			{probability: 10, result: [6,6,6]},
