@@ -26,7 +26,7 @@ SlotMachine.prototype = {
 
 		this.scoreFont = new EF.Font("Arial", 48);
 
-		this.currentMessage = "Shape Slots!";
+		this.currentMessage = "";
 		this.messageFont = new EF.Font("Arial", 48);
 
 		this.font = new EF.Font("sans", 20);
@@ -119,7 +119,7 @@ SlotMachine.prototype = {
 		this.font.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30}));
 		
 		this.scoreFont.setSize(EF.System.Viewport.worldToPixel(this.scoreFont.pixelSize));
-		this.scoreFont.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 550, y: 340}));
+		this.scoreFont.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 550, y: 380}));
 
 		this.messageFont.setSize(EF.System.Viewport.worldToPixel(this.messageFont.pixelSize));
 		this.messageFont.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 50, y: 140}));
