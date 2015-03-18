@@ -112,11 +112,17 @@ SlotMachine.prototype = {
 	rollNewResult: function() {
 		var payouts = [
 			{probability: 10, result: [7,7,7]},
-			{probability: 99, result: ["*","*","*"]}
+			{probability: 10, result: [6,6,6]},
+			{probability: 10, result: [5,5,5]},
+			{probability: 20, result: [7,7,"*"]},
+			{probability: 50, result: ["*","*","*"]}
 		];
-		var spinResult = 99 - Math.floor((Math.random() * 100));
+		var spinResult = Math.floor((Math.random() * 100));
+		var totalOdds = 0;
 		for(var i = 0; i < payouts.length; i++) {
-			if(payouts[i].probability >= spinResult) {
+			totalOdds += payouts[i].probability;
+			if(spinResult <= totalOdds) {
+				console.log(spinResult, totalOdds, i);
 				return payouts[i].result;
 			}
 		}
