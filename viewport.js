@@ -49,14 +49,16 @@ EF.Viewport.prototype = {
 	}
 };
 
-
-EF.System.Viewport = new EF.Viewport();
-EF.System.resizeCanvas = function() {
-	var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-	var screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+document.addEventListener("DOMContentLoaded", function() {
+	EF.System.Viewport = new EF.Viewport();
+	EF.System.resizeCanvas = function() {
+		var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		var screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 	
-	EF.System.Viewport.setScreenBounds(0, 0, screenWidth, screenHeight);
-	EF.System.Viewport.update();
-};
+		EF.System.Viewport.setScreenBounds(0, 0, screenWidth, screenHeight);
+		EF.System.Viewport.update();
+	};
 
-window.addEventListener("resize", EF.System.resizeCanvas);
+	window.addEventListener("resize", EF.System.resizeCanvas);
+});
+

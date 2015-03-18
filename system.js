@@ -36,16 +36,18 @@ EF.System.loop = function(lastTime) {
 		EF.System.loop(currentTime);
 	}, EF.System.canvas);
 
-	this.mainobj.update(delta);
-	this.mainobj.draw(EF.System.graphics);
+	if(this.mainobj.isLoaded()) {
+		this.mainobj.update(delta);
+		this.mainobj.draw(EF.System.graphics);
+	}
 	this.fps = Math.floor(1000 / delta);
 };
 
 EF.System.attach = function(canvasid, mainobj) {
 	this.mainobj = mainobj;
 	document.addEventListener("DOMContentLoaded", function() {
-		mainobj.init();
 		EF.System.resizeCanvas();
+		mainobj.init();
 		requestAnimationFrame(function() {
 			EF.System.loop(Date.now());
 		}, EF.System.canvas);

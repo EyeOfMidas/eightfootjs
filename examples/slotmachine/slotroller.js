@@ -76,6 +76,9 @@ SlotRoller.prototype = {
 		this.isSpinningForever = false;
 	},
 	isRestingPosition: function() {
-		return (this.targetItem == this.currentItemSelected && this.position.y == this.startingPosition.y);
+		return (!this.isSpinningForever && this.targetItem == this.currentItemSelected && this.position.y == this.startingPosition.y);
+	},
+	getTargetItem: function() {
+		return this.targetItem;
 	}
 };

@@ -2,31 +2,69 @@ SlotMachine = function() {
 };
 SlotMachine.prototype = {
 	init: function() {
-		this.font = new EF.Font("sans", 20);
-		this.font.setPosition(5, 20);
-
+		this.loaded = false;
 		EF.System.Assets.addImage("slotwheel.png");
 		EF.System.Assets.addImage("slotbackground.png");
 		EF.System.Assets.addImage("slotbutton.png");
+		EF.System.Assets.finishLoading(this, "assetsLoaded");
+	},
+	isLoaded: function() {
+		return this.loaded;
+	},
+	assetsLoaded: function() {
+		this.font = new EF.Font("sans", 20);
+		this.font.setPosition(5, 20);
 
 		this.wheels = [
 			new SlotRoller(76, 38),
 			new SlotRoller(224, 38),
 			new SlotRoller(372, 38)
 		];
+		this.lastWheel = 0;
+
 		this.background = new EF.Sprite(EF.System.Assets.getImage("slotbackground.png"), 800, 600);
 		this.background.setPosition({x:0, y:0});
-		this.button = new EF.Sprite(EF.System.Assets.getImage("slotbutton.png"), 236, 149);
-		this.button.setPosition({x:520, y:400});
+		var self = this;
+		this.button = new EF.UI.Button("slotbutton.png", 520, 400, function() {
+			self.pullLever();
+			setTimeout(function() {self.wheels[self.lastWheel].seekTarget(); }, 1000);
+		});
+		this.loaded = true;
 	},
 	update: function(delta) {
+		this.findTimer++;
 		for(var i = 0; i < this.wheels.length; i++) {
 			this.wheels[i].update(delta);
 		}
+		if(this.lastWheel >= this.wheels.length) {
+			this.lastWheel = 0;
+		}
+		if(this.findTimer > 160 && this.wheels[this.lastWheel].isRestingPosition()) {
+			if(this.lastWheel + 1 < this.wheels.length) {
+				this.wheels[++this.lastWheel].seekTarget();
+				this.findTimer = 0;
+			} else {
+				this.findTimer = 0;
+			}
+		}
 
+		var spinResult = "";
+		for(var i = 0; i < this.wheels.length; i++) {
+			if(this.wheels[i].isRestingPosition()) {
+				spinResult += this.wheels[i].getTargetItem();
+			}
+		}
+		
+		if(spinResult == "777") {
+			console.log("Jackpot!");
+		}
+		
 		this.background.setSize(EF.System.Viewport.worldSizeToPixelSize(this.background.pixelSize));
-		this.button.setSize(EF.System.Viewport.worldSizeToPixelSize(this.button.pixelSize));
+		
+		this.button.setSize(EF.System.Viewport.worldSizeToPixelSize({width: 236, height: 149}));
 		this.button.setPosition(EF.System.Viewport.worldPointToPixelPoint({x:520, y:400}));
+
+		this.button.update(delta);
 
 		this.font.setSize(EF.System.Viewport.worldToPixel(this.font.pixelSize));
 		this.font.setPosition(EF.System.Viewport.worldPointToPixelPoint({x: 15, y: 30}));
@@ -58,6 +96,8 @@ SlotMachine.prototype = {
 			this.wheels[i].setTargetItem(result[i]);
 			this.wheels[i].endlessSpin();
 		}
+		this.findTimer = 0;
+		this.lastWheel = 0;
 	},
 	preventDuplicates: function(depth, data, number) {
 		if(depth < 0) {
