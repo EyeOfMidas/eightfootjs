@@ -38,13 +38,17 @@ SlotMachine.prototype = {
 			new SlotRoller(372, 38)
 		];
 		this.lastWheel = 0;
+		this.buttonLockout = false;
 
 		this.background = new EF.Sprite(EF.System.Assets.getImage("slotbackground.png"), 800, 600);
 		this.background.setPosition({x:0, y:0});
 		var self = this;
 		this.button = new EF.UI.Button("slotbutton.png", 520, 400, function() {
-			self.pullLever();
-			setTimeout(function() {self.wheels[self.lastWheel].seekTarget(); }, 1000);
+			if(!self.buttonLockout) {
+				self.pullLever();
+				setTimeout(function() {self.wheels[self.lastWheel].seekTarget(); }, 1000);
+				self.buttonLockout = true;
+			}
 		});
 		this.loaded = true;
 	},
@@ -79,6 +83,7 @@ SlotMachine.prototype = {
 				EF.System.Assets.getSound("spin_continue.mp3").pause();
 				EF.System.Assets.getSound("spin_continue.mp3").currentTime = 0;
 				EF.System.Assets.getSound("spin_finish.mp3").play();
+				this.buttonLockout = false;
 				if(spinResult == "777") {
 					this.currentMessage = "Jackpot! +25";
 					this.creditTarget += 25;
