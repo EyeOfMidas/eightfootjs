@@ -1,5 +1,6 @@
 eightfootjs
 ===========
 
-##Examples:
-[Slot Machine](https://rawgit.com/eyeofmidas/eightfootjs/master/examples/slotmachine/index.html)
+Examples:
+
+[Slot Machine](http://eyeofmidas.github.io/eightfootjs/examples/slotmachine/index.html)
